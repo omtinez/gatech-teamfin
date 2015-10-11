@@ -34,7 +34,7 @@
         {{!base}}
         <hr />
         <footer>
-            <p>&copy; {{ year }} - My Bottle Application</p>
+            <p>&copy; {{ year }} - Team Fin</p>
         </footer>
     </div>
 
