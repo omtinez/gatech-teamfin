@@ -34,4 +34,6 @@ $RECYCLE.BIN/
 # Mac desktop service store files
 .DS_Store
 
-
+#vim swp files
+*.swp
+*.swo
