@@ -33,3 +33,14 @@ def about():
         message='Your application description page.',
         year=datetime.now().year
     )
+
+@route('/permissions')
+@view('permissions')
+def about():
+    """Renders the permissions page."""
+    return dict(
+        title='About',
+        message='Your permissions page.',
+        year=datetime.now().year
+    )
+
