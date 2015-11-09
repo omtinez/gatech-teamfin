@@ -1,2 +1,3 @@
 bottle<1
+fitbit==0.1.3
 requests
