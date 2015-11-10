@@ -34,7 +34,6 @@ def about():
         year=datetime.now().year
     )
 
-	
 @route('/login')
 @view('login')
 def login():
@@ -165,3 +164,4 @@ def success():
         title='Success',
         year=datetime.now().year
     )
+
