@@ -33,9 +33,6 @@
     </div>   
 
   </form>
-<<<<<<< HEAD
+</div>
 </div>
 
-=======
-</div>
->>>>>>> master
