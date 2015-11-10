@@ -5,6 +5,7 @@
 	<h2>{{ title }}.</h2>
 	<form  action="/permissions" method="post" class="form-horizontal" role="form">
     <div class="form-group">
+
       <div class="col-sm-10" style="padding: 8px 15px 10px 120px;">
       	<h2>Terms of Service</h2>
 		<p>Date of Last Update: November 8, 2015</p>
@@ -33,3 +34,5 @@
 
   </form>
 </div>
+</div>
+
