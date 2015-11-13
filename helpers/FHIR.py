@@ -2,15 +2,15 @@ import requests
 import json
 from time import gmtime, strftime
 
-#TODO: this should be the end-point chosen by the user
-base_url = "http://polaris.i3l.gatech.edu:8080/gt-fhir-webapp/base/Observation"
+# base_url = "http://polaris.i3l.gatech.edu:8080/gt-fhir-webapp/base/Observation"
 
 
 # Expects the minutes the user exercised and a user object with attribute id
 # that cooresponds to the patients fhir id
 class FHIR:
+    def __init__(self, url):
+        self.base_url = url
 
-    @classmethod
     def send_exercise_obs(minutes, user):
         payload = {
             'resourceType': 'Observation',
@@ -39,7 +39,7 @@ class FHIR:
 
         headers = {'content-type': 'application/json+fhir'}
         print json.dumps(payload)
-        r = requests.post(base_url, data=json.dumps(payload), headers=headers)
+        r = requests.post(self.base_url, data=json.dumps(payload), headers=headers)
         if r.status_code != 201:
             return r.text
         else:

@@ -39,18 +39,18 @@ def about():
 def login():
     return dict(
         message='Enter your email to get started',
-        year=datetime.now().year  
+        year=datetime.now().year
     )
-
 usernames = ["TeamFin@gtech.edu"]
 passwords = ["TeamFin007"]
+
 
 def check_login(username, password):
     if ((username in usernames) and (password in passwords)):
         return True
     else:
         return False
-				 
+
 @route('/login', method='POST')
 @view('login')
 def do_login():
@@ -64,10 +64,11 @@ def do_login():
 @route('/loginFailed')
 @view('loginFailed')
 def login_failed():
-	return dict(
+    return dict(
         title='Login failed',
         year=datetime.now().year
     )
+
 
 @route('/doctors_HISP')
 @view('doctors_HISP')
@@ -78,13 +79,15 @@ def doctors_HISP():
         year=datetime.now().year
     )
 
-hisps = ["hitclass@hisp.i3l.gatech.edu","teamFinSpecialist@hisp.i3l.gatech.edu"]
+hisps = ["hitclass@hisp.i3l.gatech.edu", "teamFinSpecialist@hisp.i3l.gatech.edu"]
+
 
 def check_hisp(hisp):
     if hisp in hisps:
         return True
     else:
         return False
+
 
 @route('/doctors_HISP', method='POST')
 @view('doctors_HISP')
@@ -94,7 +97,8 @@ def do_doctors_HISP():
         return permissions()
     else:
         return doctors_HISP_failed()
-	
+
+
 @route('/permissions')
 @view('permissions')
 def permissions():
@@ -111,8 +115,8 @@ def do_permissions():
 	     return fitBitConnect()
     else:
 		return home()
-    
-	
+
+
 @route('/doctor_HISPFailed')
 @view('doctor_HISPFailed')
 def doctors_HISP_failed():
@@ -121,15 +125,15 @@ def doctors_HISP_failed():
         message='Invalid doctors HISP address',
         year=datetime.now().year
     )
-	
+
 @route('/fitBitConnect')
 @view('fitBitConnect')
 def fitBitConnect():
     return dict(
         message='Connect your Fitbit',
-        year=datetime.now().year  
+        year=datetime.now().year
     )
-	
+
 fitBitUsernames = ["TeamFin"]
 fitBitPasswords = ["TeamFin007"]
 
@@ -138,7 +142,7 @@ def check_fitBitLogin(username, password):
         return True
     else:
         return False
-				 
+
 @route('/fitBitConnect', method='POST')
 @view('fitBitConnect')
 def do_fitBitConnect():
@@ -156,7 +160,7 @@ def fitBitLogin_failed():
         title='FitBit Login Failed',
         year=datetime.now().year
     )
-	
+
 @route('/success')
 @view('success')
 def success():
@@ -164,4 +168,3 @@ def success():
         title='Success',
         year=datetime.now().year
     )
-
