@@ -4,5 +4,6 @@ CREATE TABLE user(
          password TEXT,
          fitbit_username TEXT,
          current_steps INTEGER,
-         server TEXT
+         server TEXT,
+         accept_terms BOOLEAN
 );

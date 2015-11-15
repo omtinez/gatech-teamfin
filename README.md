@@ -28,3 +28,7 @@ Initiate a pull request on github. [Instructions](https://help.github.com/articl
 
 After the pull request is accepted, remove your feature/development branch.
 `$ git push <remotename> :<branchname>`
+
+
+## Database
+To create the database locally run `python database/createdb.py` from the project root directory

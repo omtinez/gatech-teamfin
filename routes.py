@@ -116,41 +116,40 @@ def doctors_HISP():
 @route('/doctors_HISP', method='POST')
 @view('doctors_HISP')
 def do_doctors_HISP():
-    hisp = request.forms.get('hispAddress').strip()
+    server = request.forms.get('hispAddress').strip()
+    userid = request.get_cookie("userid", secret='teamfin')
+    # TODO refactor the db out and pass in as an argument to sign_up method
     db = sqlite3.connect('database/jogrx.db')
     c = db.cursor()
-    c.execute("INSERT INTO hisp (server) VALUES (?)", (hisp,))
-    new_id = c.lastrowid
+    c.execute("UPDATE user SET server=? WHERE id=?", (server, int(userid)))
     db.commit()
     c.close()
-    # TODO: where should the user go after this?
-    return about()
+    return permissions()
 
 
 @route('/permissions')
 @view('permissions')
 def permissions():
-        return dict(title='Permissions', year=datetime.now().year)
+    return dict(title='Permissions', year=datetime.now().year)
 
 
 @route('/permissions', method="POST")
 @view('permissions')
 def do_permissions():
     accept = request.forms.get('Accept')
+    userid = request.get_cookie("userid", secret='teamfin')
+    db = sqlite3.connect('database/jogrx.db')
+    c = db.cursor()
     if accept:
-        return fitBitConnect()
+        c.execute("UPDATE user SET accept_terms=? WHERE id=?", (1, int(userid)))
+        db.commit()
+        c.close()
+        return success()
     else:
+        c.execute("UPDATE user SET accept_terms=? WHERE id=?", (0, int(userid)))
+        db.commit()
+        c.close()
         return home()
-
-
-@route('/doctor_HISPFailed')
-@view('doctor_HISPFailed')
-def doctors_HISP_failed():
-    return dict(
-        title='Connection with you doctor failed',
-        message='Invalid doctors HISP address',
-        year=datetime.now().year
-    )
 
 
 @route('/fitBitConnect')
@@ -174,7 +173,7 @@ def do_fitBitConnect():
     c.execute("UPDATE user SET fitbit_username=? WHERE id=?", (fitbit_username, int(userid)))
     db.commit()
     c.close()
-    return fitBitConnect()
+    return doctors_HISP()
 
 
 @route('/success')
