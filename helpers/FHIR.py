@@ -18,16 +18,16 @@ class FHIR:
                 'coding': [
                     {
                         'system': 'http://lonic.org',
-                        'code': '74009-2',
-                        'display': 'Exercise duration/Exervise frequency'
+                        'code': '41950-7',
+                        'display': 'Number of steps in 24 hour Measured'
                     }
                 ]
             },
             'valueQuantity': {
-                'value': minutes,
-                'units': 'min',
+                'value': steps,
+                'units': 'steps',
                 'system': 'http://unitsofmeasure.org',
-                'code': 'min'
+                'code': 'steps'
             },
             'appliesDateTime':  strftime("%Y-%m-%dT%H:%M:%S-04:00", gmtime()),
             'status': 'final',
