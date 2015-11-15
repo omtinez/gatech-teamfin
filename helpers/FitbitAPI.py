@@ -23,7 +23,7 @@ class FitbitAPI:
         ret = {"Steps": steps, "Distance": distance}
         return ret
 
-
+#
 # if __name__ == "__main__":
 #     fbapi = FitbitAPI()
 #     print fbapi.pull("3S2Y3M")

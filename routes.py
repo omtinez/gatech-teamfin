@@ -162,15 +162,13 @@ def fitBitConnect():
 @route('/fitBitConnect', method='POST')
 @view('fitBitConnect')
 def do_fitBitConnect():
-    fitbit_username = request.forms.get('username')
+    fitbit_id = request.forms.get('fitbit_id')
     # TODO we should check if its a valid Fitbit name
     userid = request.get_cookie("userid", secret='teamfin')
     # TODO refactor the db out and pass in as an argument to sign_up method
     db = sqlite3.connect('database/jogrx.db')
     c = db.cursor()
-    print userid
-    print fitbit_username
-    c.execute("UPDATE user SET fitbit_username=? WHERE id=?", (fitbit_username, int(userid)))
+    c.execute("UPDATE user SET fitbit_id=? WHERE id=?", (fitbit_id, int(userid)))
     db.commit()
     c.close()
     return doctors_HISP()
