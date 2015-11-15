@@ -2,8 +2,10 @@
 Routes and views for the bottle application.
 """
 
-from bottle import route, view
+from bottle import route, view, request
 from datetime import datetime
+import sqlite3
+
 
 @route('/')
 @route('/home')
@@ -13,6 +15,7 @@ def home():
     return dict(
         year=datetime.now().year
     )
+
 
 @route('/contact')
 @view('contact')
@@ -24,6 +27,7 @@ def contact():
         year=datetime.now().year
     )
 
+
 @route('/about')
 @view('about')
 def about():
@@ -33,6 +37,7 @@ def about():
         message='Your application description page.',
         year=datetime.now().year
     )
+
 
 @route('/login')
 @view('login')
@@ -51,6 +56,7 @@ def check_login(username, password):
     else:
         return False
 
+
 @route('/login', method='POST')
 @view('login')
 def do_login():
@@ -60,6 +66,7 @@ def do_login():
         return doctors_HISP()
     else:
         return login_failed()
+
 
 @route('/loginFailed')
 @view('loginFailed')
@@ -79,24 +86,18 @@ def doctors_HISP():
         year=datetime.now().year
     )
 
-hisps = ["hitclass@hisp.i3l.gatech.edu", "teamFinSpecialist@hisp.i3l.gatech.edu"]
-
-
-def check_hisp(hisp):
-    if hisp in hisps:
-        return True
-    else:
-        return False
-
 
 @route('/doctors_HISP', method='POST')
 @view('doctors_HISP')
 def do_doctors_HISP():
-    hisp = request.forms.get('hispAddress')
-    if check_hisp(hisp):
-        return permissions()
-    else:
-        return doctors_HISP_failed()
+    hisp = request.forms.get('hispAddress').strip()
+    db = sqlite3.connect('database/jogrx.db')
+    c = db.cursor()
+    c.execute("INSERT INTO hisp (server) VALUES (?)", (hisp,))
+    new_id = c.lastrowid
+    db.commit()
+    c.close()
+    return fitBitConnect()
 
 
 @route('/permissions')

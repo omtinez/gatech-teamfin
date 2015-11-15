@@ -14,6 +14,7 @@ class FitbitAPI:
                         client_secret=self.consumerSecret)
 
     def pull(self, userId):
+        # TODO: this should return that last activity it any
         states = self.unauthfb.activity_stats(userId)
 
         steps = states[u'lifetime'][u'total'][u'steps']

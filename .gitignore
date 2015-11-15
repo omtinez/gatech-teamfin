@@ -37,3 +37,6 @@ $RECYCLE.BIN/
 #vim swp files
 *.swp
 *.swo
+
+#ignore the database
+/database/jogrx.db
