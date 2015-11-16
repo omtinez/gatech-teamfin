@@ -2,5 +2,4 @@ bottle<1
 fitbit==0.1.3
 requests
 schedule
-fitbit
 bottle-sqlite

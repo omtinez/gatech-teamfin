@@ -29,9 +29,22 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="app.py" />
-    <Compile Include="routes.py" />
+    <Compile Include="controllers\loginFailed.py" />
+    <Compile Include="controllers\doctors_HISP.py" />
+    <Compile Include="controllers\permissions.py" />
+    <Compile Include="controllers\fitBitConnect.py" />
+    <Compile Include="controllers\success.py" />
+    <Compile Include="controllers\login.py" />
+    <Compile Include="controllers\sign_up.py" />
+    <Compile Include="controllers\about.py" />
+    <Compile Include="controllers\contact.py" />
+    <Compile Include="controllers\__init__.py" />
+    <Compile Include="controllers\home.py">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="controllers\" />
     <Folder Include="static\" />
     <Folder Include="static\content\" />
     <Folder Include="static\fonts\" />
