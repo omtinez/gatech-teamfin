@@ -2,8 +2,10 @@
 Routes and views for the bottle application.
 """
 
-from bottle import route, view
+from bottle import route, view, request, response
 from datetime import datetime
+import sqlite3
+
 
 @route('/')
 @route('/home')
@@ -13,6 +15,7 @@ def home():
     return dict(
         year=datetime.now().year
     )
+
 
 @route('/contact')
 @view('contact')
@@ -24,6 +27,7 @@ def contact():
         year=datetime.now().year
     )
 
+
 @route('/about')
 @view('about')
 def about():
@@ -34,23 +38,51 @@ def about():
         year=datetime.now().year
     )
 
+
+@route('/sign_up', method='GET')
+@view('sign_up')
+def get_sign_up():
+    return dict(year=datetime.now().year)
+
+
+@route('/sign_up', method='POST')
+@view('sign_up')
+def create_user_sign_up():
+    username = request.forms.get('username')
+    password = request.forms.get('password')
+    print username
+    print password
+    # TODO refactor the db out and pass in as an argument to sign_up method
+    db = sqlite3.connect('database/jogrx.db')
+    c = db.cursor()
+    # new_userid = c.lastrowid
+    c.execute("INSERT INTO user (username, password) VALUES (?, ?)", (username, password))
+    new_userid = c.lastrowid
+    db.commit()
+    c.close()
+    # TODO: where should the user go after this?
+    response.set_cookie('userid', new_userid, "teamfin")
+    return fitBitConnect()
+
+
 @route('/login')
 @view('login')
 def login():
     return dict(
         message='Enter your email to get started',
-        year=datetime.now().year  
+        year=datetime.now().year
     )
-
 usernames = ["TeamFin@gtech.edu"]
 passwords = ["TeamFin007"]
+
 
 def check_login(username, password):
     if ((username in usernames) and (password in passwords)):
         return True
     else:
         return False
-				 
+
+
 @route('/login', method='POST')
 @view('login')
 def do_login():
@@ -61,13 +93,15 @@ def do_login():
     else:
         return login_failed()
 
+
 @route('/loginFailed')
 @view('loginFailed')
 def login_failed():
-	return dict(
+    return dict(
         title='Login failed',
         year=datetime.now().year
     )
+
 
 @route('/doctors_HISP')
 @view('doctors_HISP')
@@ -78,90 +112,69 @@ def doctors_HISP():
         year=datetime.now().year
     )
 
-hisps = ["hitclass@hisp.i3l.gatech.edu","teamFinSpecialist@hisp.i3l.gatech.edu"]
-
-def check_hisp(hisp):
-    if hisp in hisps:
-        return True
-    else:
-        return False
 
 @route('/doctors_HISP', method='POST')
 @view('doctors_HISP')
 def do_doctors_HISP():
-    hisp = request.forms.get('hispAddress')
-    if check_hisp(hisp):
-        return permissions()
-    else:
-        return doctors_HISP_failed()
-	
+    server = request.forms.get('hispAddress').strip()
+    userid = request.get_cookie("userid", secret='teamfin')
+    # TODO refactor the db out and pass in as an argument to sign_up method
+    db = sqlite3.connect('database/jogrx.db')
+    c = db.cursor()
+    c.execute("UPDATE user SET server=? WHERE id=?", (server, int(userid)))
+    db.commit()
+    c.close()
+    return permissions()
+
+
 @route('/permissions')
 @view('permissions')
 def permissions():
-        return dict(
-        title='Permissions',
-        year=datetime.now().year
-    )
+    return dict(title='Permissions', year=datetime.now().year)
+
 
 @route('/permissions', method="POST")
 @view('permissions')
 def do_permissions():
     accept = request.forms.get('Accept')
-    if  accept:
-	     return fitBitConnect()
+    userid = request.get_cookie("userid", secret='teamfin')
+    db = sqlite3.connect('database/jogrx.db')
+    c = db.cursor()
+    if accept:
+        c.execute("UPDATE user SET accept_terms=? WHERE id=?", (1, int(userid)))
+        db.commit()
+        c.close()
+        return success()
     else:
-		return home()
-    
-	
-@route('/doctor_HISPFailed')
-@view('doctor_HISPFailed')
-def doctors_HISP_failed():
-    return dict(
-        title='Connection with you doctor failed',
-        message='Invalid doctors HISP address',
-        year=datetime.now().year
-    )
-	
+        c.execute("UPDATE user SET accept_terms=? WHERE id=?", (0, int(userid)))
+        db.commit()
+        c.close()
+        return home()
+
+
 @route('/fitBitConnect')
 @view('fitBitConnect')
 def fitBitConnect():
     return dict(
-        message='Connect your Fitbit',
-        year=datetime.now().year  
-    )
-	
-fitBitUsernames = ["TeamFin"]
-fitBitPasswords = ["TeamFin007"]
+        message='Connect your Fitbit', year=datetime.now().year)
 
-def check_fitBitLogin(username, password):
-    if ((username in fitBitUsernames) and (password in fitBitPasswords)):
-        return True
-    else:
-        return False
-				 
+
 @route('/fitBitConnect', method='POST')
 @view('fitBitConnect')
 def do_fitBitConnect():
-    username = request.forms.get('username')
-    password = request.forms.get('password')
-    if check_fitBitLogin(username, password):
-        return success()
-    else:
-        return fitBitLogin_failed()
+    fitbit_id = request.forms.get('fitbit_id')
+    # TODO we should check if its a valid Fitbit name
+    userid = request.get_cookie("userid", secret='teamfin')
+    # TODO refactor the db out and pass in as an argument to sign_up method
+    db = sqlite3.connect('database/jogrx.db')
+    c = db.cursor()
+    c.execute("UPDATE user SET fitbit_id=? WHERE id=?", (fitbit_id, int(userid)))
+    db.commit()
+    c.close()
+    return doctors_HISP()
 
-@route('/fitBitLogin_failed')
-@view('fitBitLogin_failed')
-def fitBitLogin_failed():
-	return dict(
-        title='FitBit Login Failed',
-        year=datetime.now().year
-    )
-	
+
 @route('/success')
 @view('success')
 def success():
-	return dict(
-        title='Success',
-        year=datetime.now().year
-    )
-
+    return dict(title='Success', year=datetime.now().year)

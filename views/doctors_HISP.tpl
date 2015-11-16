@@ -7,10 +7,10 @@
 	<form action="/doctors_HISP" method="post" class="form-horizontal" role="form">
     <div class="form-group">
       <div class="col-sm-10">
-        <input name="hispAddress" type="email" class="form-control" id="email" placeholder="Enter your doctors HISP address">
+        <input name="hispAddress" class="form-control" id="email" placeholder="Enter your doctors HISP address">
       </div>
     </div>
-    <div class="form-group">        
+    <div class="form-group">
       <div class="col-sm-offset-2 col-sm-10">
         <input value="Submit" type="submit" class="btn btn-default active"/>
       </div>
@@ -18,4 +18,3 @@
   </form>
 
 </div>
-
