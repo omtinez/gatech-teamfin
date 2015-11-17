@@ -10,6 +10,7 @@
     <link rel="stylesheet" type="text/css" href="/static/content/ripples.css" />
     <link rel="stylesheet" type="text/css" href="/static/content/roboto.css" />
     <link rel="stylesheet" type="text/css" href="/static/content/site.css" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <script src="/static/scripts/modernizr-2.6.2.js"></script>
 </head>
 
@@ -25,10 +26,8 @@
                 <a href="/" class="navbar-brand">JogRX</a>
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li><a href="/home">Home</a></li>
-                    <li><a href="/about">About</a></li>
-					          <li><a href="/sign_up">Sign Up</a></li>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="/sign_up">Sign Up</a></li>
                     <li><a href="/login">Login</a></li>
                 </ul>
             </div>
