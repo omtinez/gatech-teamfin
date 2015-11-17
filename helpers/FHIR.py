@@ -11,7 +11,7 @@ class FHIR:
     def __init__(self, url):
         self.base_url = url
 
-    def send_exercise_obs(steps, userid):
+    def send_exercise_obs(self, steps, userid):
         payload = {
             'resourceType': 'Observation',
             'code': {
