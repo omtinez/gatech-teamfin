@@ -3,7 +3,7 @@ CREATE TABLE user(
          username TEXT,
          password TEXT,
          fitbit_id TEXT,
-         current_steps INTEGER,
+         current_steps INTEGER DEFAULT 0,
          server TEXT,
          accept_terms BOOLEAN
 );
