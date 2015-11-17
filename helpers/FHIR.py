@@ -40,7 +40,13 @@ class FHIR:
         headers = {'content-type': 'application/json+fhir'}
         print json.dumps(payload)
         r = requests.post(self.base_url, data=json.dumps(payload), headers=headers)
-        if r.status_code != 201:
-            return r.text
+        if r.status_code == 201:
+            print "Success"
+            print r.headers
+            print r.text
+            return
         else:
-            return r.status_code
+            print "Error"
+            print r.headers
+            print r.text
+            return
