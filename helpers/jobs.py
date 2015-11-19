@@ -32,6 +32,5 @@ for user in users:
 db.commit()
 c.close()
 
-
 #  fbapi = FitbitAPI()
 # #     print fbapi.pull("3S2Y3M"

@@ -1,6 +1,7 @@
 ﻿body {
     padding-top: 50px;
     padding-bottom: 20px;
+    background-color: #EEEEEE;
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -39,4 +40,22 @@ input[type="checkbox"].input-validation-error {
 
 .validation-summary-valid {
     display: none;
+}
+
+.navbar-inverse.navbar {
+    background-color: rgba(30, 186, 209, 1);
+    color: white;
+}
+
+.push-down {
+    margin-top: 3em;
+}
+
+.success-image {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 200px;
+    max-height: auto;
+
 }

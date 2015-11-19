@@ -1,33 +1,40 @@
 % rebase('layout.tpl', title='Home Page', year=year)
 
-<div class="jumbotron">
-    <h1>JogRX</h1>
-    <p class="lead">Let your doctor be your coach</p>
-    <p><a href="http://bottlepy.org/docs/dev/index.html" class="btn btn-primary btn-large">Learn more &raquo;</a></p>
+<div class="row">
+  <div class="col-md-8 col-md-offset-2">
+    <div class="jumbotron push-down">
+      <h1 class="text-center">JogRX</h1>
+      <p class="lead text-center">Let your doctor be your coach</p>
+      <p class="text-center">
+        <a href="/sign_up" class="btn btn-primary btn-large">Get Going</a>
+      </p>
+      <div class="clearfix"></div>
+    </div>
+  </div>
 </div>
 
 <div class="row">
     <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            Bottle gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="http://bottlepy.org/docs/dev/index.html">Learn more &raquo;</a></p>
+      <h2><i class="material-icons">input</i> Connect</h2>
+      <p>
+        JogRx allow you to securly connect your FitBit device to your medical records.
+        Simply enter your Fitbit account information into JogRx and provide us with
+        what physician you would like sent your Fitbit data.
+      </p>
     </div>
     <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>The Python Package Index is a repository of software for the Python programming language.</p>
-        <p><a class="btn btn-default" href="https://pypi.python.org/pypi">Learn more &raquo;</a></p>
+      <h2><i class="material-icons">loop</i> Sync</h2>
+      <p>
+        Once connected, JogRx will automatically send your activity information
+        to your physician. Just go exercise, and let JogRx do the rest.
+      </p>
     </div>
     <div class="col-md-4">
-        <h2>Python Tools for Visual Studio</h2>
-        <p>
-            PTVS is a free, open source plugin that turns Visual Studio into a Python IDE 
-            with support for editing, browsing, IntelliSense, Azure remote debugging, 
-            profiling and more.
-        </p>
-        <p><a class="btn btn-default" href="http://pytools.codeplex.com">Learn more &raquo;</a></p>
+      <h2><i class="material-icons">assignment</i> Get Better</h2>
+      <p>
+        The next time you visit your phyiscian, he or she will have all your Fitbit
+        data at his or her finger-tips. All transfered securely, directly inside your
+        medical records.
+      </p>
     </div>
 </div>

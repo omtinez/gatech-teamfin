@@ -1,7 +1,8 @@
-% rebase('layout.tpl', title='Home Page', year=year)
+% rebase('layout.tpl', title='Success', year=year)
 
-<div class="jumbotron">
-    <h1>JogRX</h1>
-    <h2>{{title}}</h2>
-</div>
 
+<h1 class="push-down text-center">{{title}}</h1>
+
+<img src="static/images/success.svg" alt="success" class="success-image">
+
+<h3 class="text-center">Now get out there!</h3>
