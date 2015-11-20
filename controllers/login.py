@@ -1,6 +1,8 @@
 ﻿from bottle import route, view, request, response
 from datetime import datetime
 import sqlite3
+from loginFailed import login_failed
+from success import success
 
 @route('/login')
 @view('login')
@@ -13,17 +15,19 @@ usernames = ["TeamFin@gtech.edu"]
 passwords = ["TeamFin007"]
 
 def check_login(username, password):
-    if ((username in usernames) and (password in passwords)):
-        return True
-    else:
-        return False
+    db = sqlite3.connect('database/jogrx.db')
+    c = db.cursor()
+    c.execute("Select * from user where username = ? and password = ?", (username, password,))
+    result = c.fetchone()
+    return result
+
 
 @route('/login', method='POST')
 @view('login')
 def do_login():
     username = request.forms.get('username')
     password = request.forms.get('password')
-    if check_login(username, password):
-        return doctors_HISP()
-    else:
+    if check_login(username, password)is None:
         return login_failed()
+    else:
+        return success()

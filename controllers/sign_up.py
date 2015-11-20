@@ -1,6 +1,7 @@
 ﻿from bottle import route, view, request, response
 from datetime import datetime
 import sqlite3
+from fitBitConnect import fitBitConnect
 
 @route('/sign_up', method='GET')
 @view('sign_up')

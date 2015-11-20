@@ -1,6 +1,7 @@
 ﻿from bottle import route, view, request, response
 from datetime import datetime
 import sqlite3
+from permissions import permissions
 
 @route('/doctors_HISP')
 @view('doctors_HISP')

@@ -1,6 +1,7 @@
 ﻿from bottle import route, view, request, response
 from datetime import datetime
 import sqlite3
+from doctors_HISP import doctors_HISP
 
 @route('/fitBitConnect')
 @view('fitBitConnect')
@@ -11,7 +12,7 @@ def fitBitConnect():
 @route('/fitBitConnect', method='POST')
 @view('fitBitConnect')
 def do_fitBitConnect():
-    fitbit_id = request.forms.get('fitbit_id')
+    fitbit_id = request.forms.get('username')
     # TODO we should check if its a valid Fitbit name
     userid = request.get_cookie("userid", secret='teamfin')
     # TODO refactor the db out and pass in as an argument to sign_up method
