@@ -1,6 +1,7 @@
 ﻿from bottle import route, view, request, response
 from datetime import datetime
 import sqlite3
+import bcrypt
 from fitBitConnect import fitBitConnect
 
 @route('/sign_up', method='GET')
@@ -13,11 +14,12 @@ def get_sign_up():
 def create_user_sign_up():
     username = request.forms.get('username')
     password = request.forms.get('password')
+    hashed = bcrypt.hashpw(password, bcrypt.gensalt())
     # TODO refactor the db out and pass in as an argument to sign_up method
     db = sqlite3.connect('database/jogrx.db')
     c = db.cursor()
     # new_userid = c.lastrowid
-    c.execute("INSERT INTO user (username, password) VALUES (?, ?)", (username, password))
+    c.execute("INSERT INTO user (username, password) VALUES (?, ?)", (username, hashed))
     new_userid = c.lastrowid
     db.commit()
     c.close()

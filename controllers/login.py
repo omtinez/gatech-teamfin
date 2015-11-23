@@ -1,6 +1,7 @@
 ﻿from bottle import route, view, request, response
 from datetime import datetime
 import sqlite3
+import bcrypt
 from loginFailed import login_failed
 from success import success
 
@@ -17,9 +18,15 @@ passwords = ["TeamFin007"]
 def check_login(username, password):
     db = sqlite3.connect('database/jogrx.db')
     c = db.cursor()
-    c.execute("Select * from user where username = ? and password = ?", (username, password,))
-    result = c.fetchone()
-    return result
+    c.execute("Select id, password from user where username = ?", (username,))
+    row = c.fetchone()
+    if row is not None:
+        hashed = row[1].encode('utf-8')
+        if bcrypt.hashpw(password, hashed) == hashed:
+            return row[0]
+
+    return None
+        
 
 
 @route('/login', method='POST')
@@ -27,7 +34,9 @@ def check_login(username, password):
 def do_login():
     username = request.forms.get('username')
     password = request.forms.get('password')
-    if check_login(username, password)is None:
-        return login_failed()
-    else:
+    user_id = check_login(username, password)
+    if user_id:
+        response.set_cookie('userid', user_id, "teamfin")
         return success()
+    else:
+        return login_failed()

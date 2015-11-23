@@ -3,3 +3,4 @@ fitbit==0.1.3
 requests
 schedule
 bottle-sqlite
+bcrypt
