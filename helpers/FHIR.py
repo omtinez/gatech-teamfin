@@ -105,6 +105,7 @@ class FHIR:
 
         headers = {'content-type': 'application/json+fhir'}
         print json.dumps(payload)
+        # patient_url = self.base_url + "/Patient/?_format=json"
         patient_url = self.base_url + "/Patient?_format=json"
         r = requests.post(patient_url, data=json.dumps(payload), headers=headers)
         if r.status_code == 201:

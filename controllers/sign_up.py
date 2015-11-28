@@ -5,10 +5,12 @@ import bcrypt
 from helpers import FHIR
 from fitBitConnect import fitBitConnect
 
+
 @route('/sign_up', method='GET')
 @view('sign_up')
 def get_sign_up():
     return dict(year=datetime.now().year)
+
 
 @route('/sign_up', method='POST')
 @view('sign_up')
@@ -27,11 +29,13 @@ def create_user_sign_up():
         'gender': gender
         }
 
+    print user
+    raw_input("Press Enter to continue...")
+
     hashed = bcrypt.hashpw(password, bcrypt.gensalt())
     db = sqlite3.connect('database/jogrx.db')
     c = db.cursor()
-    # new_userid = c.lastrowid
-    c.execute("INSERT INTO user (username, password, first_name, last_name) VALUES (?, ?, ?, ?)", (username, hashed, first_name, last_name));
+    c.execute("INSERT INTO user (username, password, first_name, last_name, birthdate, gender) VALUES (?, ?, ?, ?, ?, ?)", (username, hashed, first_name, last_name, birthdate, gender))
     new_userid = c.lastrowid
     response.set_cookie('userid', new_userid, "teamfin")
     fhir = FHIR('http://polaris.i3l.gatech.edu:8080/gt-fhir-webapp/base')
