@@ -7,3 +7,18 @@ CREATE TABLE user(
          server TEXT,
          accept_terms BOOLEAN
 );
+
+CREATE TABLE steps(
+         id INTEGER PRIMARY KEY AUTOINCREMENT ,
+         username TEXT,
+         retrieveTime TEXT,
+         stepsTaken INTEGER
+);
+
+CREATE TABLE bmi(
+         id INTEGER PRIMARY KEY AUTOINCREMENT ,
+         username TEXT,
+         weight FLOAT,
+         height FLOAT,
+         bmi FLOAT
+);

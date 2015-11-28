@@ -1,5 +1,4 @@
-% rebase('layout.tpl', title='Home Page', year=year)
-
+% rebase('layout.tpl', title='Fitbit Connect', year=year)
 <div class="jumbotron">
     <h1>JogRX</h1>
     <h3>Enter your fitbit sharing id.</h3>
