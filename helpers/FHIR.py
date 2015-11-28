@@ -5,11 +5,10 @@ from time import gmtime, strftime
 from FitbitAPI import FitbitAPI
 import sqlite3
 
-# base_url = "http://polaris.i3l.gatech.edu:8080/gt-fhir-webapp/base/Observation?_format=json"
-
-
 # Expects the minutes the user exercised and a user object with attribute id
 # that cooresponds to the patients fhir id
+
+
 class FHIR:
     def __init__(self, url):
         self.base_url = url
