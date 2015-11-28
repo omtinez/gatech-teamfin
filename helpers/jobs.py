@@ -25,7 +25,7 @@ def sync_with_fhir():
 #TODO how do we start this on the server
 schedule.every(60).minutes.do(sync_with_fhir())
 fbapi = FitbitAPI()
-fhir = FHIR('http://polaris.i3l.gatech.edu:8080/gt-fhir-webapp/base/')
+fhir = FHIR('http://polaris.i3l.gatech.edu:8080/gt-fhir-webapp/base')
 db = sqlite3.connect('../database/jogrx.db')
 c = db.cursor()
 c.execute("SELECT * FROM user")

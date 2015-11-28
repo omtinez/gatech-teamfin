@@ -1,5 +1,6 @@
 import requests
 import json
+import re
 from time import gmtime, strftime
 
 # base_url = "http://polaris.i3l.gatech.edu:8080/gt-fhir-webapp/base/Observation?_format=json"
@@ -54,17 +55,18 @@ class FHIR:
 
     # creates a new FHIR patient and returns a patient id
     def create_new_patient(self, user, userid):
+        first_name = user[7]
+        last_name = user[8]
         print "Creating a new patient"
         payload = {
             "resourceType": "Patient",
             "name": [
                 {
                     "family": [
-                        "Donkey"
+                        last_name
                     ],
                     "given":[
-                        "Solomon",
-                        "C"
+                        first_name
                     ]
                 }
             ],
@@ -87,15 +89,19 @@ class FHIR:
         headers = {'content-type': 'application/json+fhir'}
         print json.dumps(payload)
         # patient_url = self.base_url + "/Patient/?_format=json"
-        patient_url = "http://polaris.i3l.gatech.edu:8080/gt-fhir-webapp/base/Patient?_format=json"
+        patient_url = self.base_url + "/Patient?_format=json"
         r = requests.post(patient_url, data=json.dumps(payload), headers=headers)
         if r.status_code == 201:
             print "Success"
             print r.headers
             print r.json
+            patient_id = re.search('Patient/([0-9]+)', r.headers['location']).group(1)
+            print "Patient ID: %s" % patient_id
+            return patient_id
             # return r.json
         else:
             print "Error"
             print r.headers
             print r.json
             # return r.json
+            return None
