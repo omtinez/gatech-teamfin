@@ -7,7 +7,11 @@
 	<form action="/doctors_HISP" method="post" class="form-horizontal" role="form">
     <div class="form-group">
       <div class="col-sm-10">
-        <input name="hispAddress" class="form-control" id="email" placeholder="Enter your doctors HISP address">
+        <select name="hispAddress" class="form-control" placeholder="Where should we send your data?">
+          <option value="" disabled selected>Where should we send your data?</option>
+          <option value="http://polaris.i3l.gatech.edu:8080/gt-fhir-webapp/base">Georgia Institute of Technology</option>
+          <option value="https://open.epic.com/Interface/" disabled>Open Epic</option>
+        </select>
       </div>
     </div>
     <div class="form-group">
