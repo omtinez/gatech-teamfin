@@ -28,9 +28,9 @@ class FHIR:
             },
             'valueQuantity': {
                 'value': steps,
-                'units': 'steps',
+                'units': 'cm',
                 'system': 'http://unitsofmeasure.org',
-                'code': 'steps'
+                'code': 'cm'
             },
             'appliesDateTime':  strftime("%Y-%m-%dT%H:%M:%S-04:00", gmtime()),
             'status': 'final',
