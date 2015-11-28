@@ -59,3 +59,7 @@ input[type="checkbox"].input-validation-error {
     max-height: auto;
 
 }
+
+.terms {
+  font-size: 80%;
+}

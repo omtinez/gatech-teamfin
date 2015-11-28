@@ -17,7 +17,7 @@
 
     <div class="form-group">
       <div class="col-sm-offset-2 col-sm-10">
-        <input value="Sign Up" type="submit" class="btn btn-default active"/>
+        <input value="Sign Up" type="submit" class="btn btn-primary active"/>
       </div>
     </div>
   </form>
