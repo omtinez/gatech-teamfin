@@ -40,3 +40,6 @@ $RECYCLE.BIN/
 
 #ignore the database
 /database/jogrx.db
+
+.DS_Store
+
