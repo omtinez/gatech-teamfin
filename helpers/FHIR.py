@@ -2,12 +2,13 @@ import requests
 import json
 import re
 from time import gmtime, strftime
-
-# base_url = "http://polaris.i3l.gatech.edu:8080/gt-fhir-webapp/base/Observation?_format=json"
-
+from FitbitAPI import FitbitAPI
+import sqlite3
 
 # Expects the minutes the user exercised and a user object with attribute id
 # that cooresponds to the patients fhir id
+
+
 class FHIR:
     def __init__(self, url):
         self.base_url = url
@@ -108,9 +109,8 @@ class FHIR:
             # return r.json
             return None
 
-    def sync_with_fhir(users):
+    def sync_with_fhir(self):
         fbapi = FitbitAPI()
-        fhir = FHIR('http://polaris.i3l.gatech.edu:8080/gt-fhir-webapp/base')
         db = sqlite3.connect('database/jogrx.db')
         c = db.cursor()
         c.execute("SELECT * FROM user")
@@ -130,7 +130,7 @@ class FHIR:
                     c.execute("UPDATE user SET current_steps=? WHERE id=?", (
                         fitbit_stats['Steps'], int(user_id)))
                     diff_steps = fitbit_stats['Steps'] - current_steps
-                    fhir.send_exercise_obs(diff_steps, fhir_id)
+                    self.send_exercise_obs(diff_steps, fhir_id)
                     print "New steps saved"
             db.commit()
             c.close()
