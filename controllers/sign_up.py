@@ -30,7 +30,8 @@ def create_user_sign_up():
     hashed = bcrypt.hashpw(password, bcrypt.gensalt())
     db = sqlite3.connect('database/jogrx.db')
     c = db.cursor()
-    c.execute("INSERT INTO user (username, password, first_name, last_name, birthdate, gender) VALUES (?, ?, ?, ?, ?, ?)", (username, hashed, first_name, last_name, birthdate, gender))
+    # new_userid = c.lastrowid
+    c.execute("INSERT INTO user (username, password, first_name, last_name) VALUES (?, ?, ?, ?)", (username, hashed, first_name, last_name));
     new_userid = c.lastrowid
     response.set_cookie('userid', new_userid, "teamfin")
     fhir = FHIR('http://polaris.i3l.gatech.edu:8080/gt-fhir-webapp/base')
