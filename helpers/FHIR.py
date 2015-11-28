@@ -5,13 +5,16 @@ from time import gmtime, strftime
 from FitbitAPI import FitbitAPI
 import sqlite3
 
+# base_url = "http://polaris.i3l.gatech.edu:8080/gt-fhir-webapp/base/Observation?_format=json"
+
+
 # Expects the minutes the user exercised and a user object with attribute id
 # that cooresponds to the patients fhir id
 class FHIR:
     def __init__(self, url):
         self.base_url = url
 
-    def send_exercise_obs(self, steps, fhir_id):
+    def send_exercise_obs(self, steps, userid):
         payload = {
             'resourceType': 'Observation',
             'code': {
@@ -25,15 +28,15 @@ class FHIR:
             },
             'valueQuantity': {
                 'value': steps,
-                'units': 'cm',
+                'units': 'steps',
                 'system': 'http://unitsofmeasure.org',
-                'code': 'cm'
+                'code': 'steps'
             },
             'appliesDateTime':  strftime("%Y-%m-%dT%H:%M:%S-04:00", gmtime()),
             'status': 'final',
             'reliability': 'ok',
             'subject': {
-                'reference': 'Patient/%s' % fhir_id
+                'reference': 'Patient/%s' % userid
             }
         }
 
