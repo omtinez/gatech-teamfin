@@ -29,9 +29,6 @@ def create_user_sign_up():
         'gender': gender
         }
 
-    print user
-    raw_input("Press Enter to continue...")
-
     hashed = bcrypt.hashpw(password, bcrypt.gensalt())
     db = sqlite3.connect('database/jogrx.db')
     c = db.cursor()

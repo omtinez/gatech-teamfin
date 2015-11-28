@@ -12,7 +12,7 @@ class FHIR:
     def __init__(self, url):
         self.base_url = url
 
-    def send_exercise_obs(self, steps, userid):
+    def send_exercise_obs(self, steps, fhir_id):
         payload = {
             'resourceType': 'Observation',
             'code': {
@@ -34,7 +34,7 @@ class FHIR:
             'status': 'final',
             'reliability': 'ok',
             'subject': {
-                'reference': 'Patient/%s' % userid
+                'reference': 'Patient/%s' % fhir_id
             }
         }
 
@@ -79,11 +79,11 @@ class FHIR:
                 {
                     "use": "home",
                     "line": [
-                        "370 Zermatt Avenue"
+                        ""
                     ],
-                    "city":"Atlanta",
-                    "state":"GA",
-                    "postalCode":"30308"
+                    "city":"",
+                    "state":"",
+                    "postalCode":""
                     }
                 ],
             "active": 'true'
@@ -91,7 +91,6 @@ class FHIR:
 
         headers = {'content-type': 'application/json+fhir'}
         print json.dumps(payload)
-        raw_input("Press Enter to continue...")
         patient_url = self.base_url + "/Patient?_format=json"
         r = requests.post(patient_url, data=json.dumps(payload), headers=headers)
         if r.status_code == 201:
@@ -108,3 +107,30 @@ class FHIR:
             print r.json
             # return r.json
             return None
+
+    def sync_with_fhir(users):
+        fbapi = FitbitAPI()
+        fhir = FHIR('http://polaris.i3l.gatech.edu:8080/gt-fhir-webapp/base')
+        db = sqlite3.connect('database/jogrx.db')
+        c = db.cursor()
+        c.execute("SELECT * FROM user")
+        users = c.fetchall()
+        print users
+        for user in users:
+            print "-----------"
+            print user
+            user_id = user[0]
+            fitbit_id = user[3]
+            fhir_id = user[11]
+            current_steps = user[4]
+            fitbit_stats = fbapi.pull(str(fitbit_id))
+            if fitbit_id is not None and fhir_id is not None:
+                if fitbit_stats['Steps'] > current_steps:
+                    print "Steps different"
+                    c.execute("UPDATE user SET current_steps=? WHERE id=?", (
+                        fitbit_stats['Steps'], int(user_id)))
+                    diff_steps = fitbit_stats['Steps'] - current_steps
+                    fhir.send_exercise_obs(diff_steps, fhir_id)
+                    print "New steps saved"
+            db.commit()
+            c.close()
