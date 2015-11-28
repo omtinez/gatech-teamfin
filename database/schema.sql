@@ -5,7 +5,8 @@ CREATE TABLE user(
          fitbit_id TEXT,
          current_steps INTEGER DEFAULT 0,
          server TEXT,
-         accept_terms BOOLEAN
+         accept_terms BOOLEAN,
+         hisp_id TEXT
 );
 
 CREATE TABLE steps(
