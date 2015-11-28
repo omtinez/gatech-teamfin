@@ -28,9 +28,9 @@ class FHIR:
             },
             'valueQuantity': {
                 'value': steps,
-                'units': 'cm',
+                'units': 'steps',
                 'system': 'http://unitsofmeasure.org',
-                'code': 'cm'
+                'code': 'steps'
             },
             'appliesDateTime':  strftime("%Y-%m-%dT%H:%M:%S-04:00", gmtime()),
             'status': 'final',
@@ -105,7 +105,6 @@ class FHIR:
 
         headers = {'content-type': 'application/json+fhir'}
         print json.dumps(payload)
-        # patient_url = self.base_url + "/Patient/?_format=json"
         patient_url = self.base_url + "/Patient?_format=json"
         r = requests.post(patient_url, data=json.dumps(payload), headers=headers)
         if r.status_code == 201:
