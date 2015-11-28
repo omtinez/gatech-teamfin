@@ -54,9 +54,12 @@ class FHIR:
             return
 
     # creates a new FHIR patient and returns a patient id
-    def create_new_patient(self, user, userid):
-        first_name = user[7]
-        last_name = user[8]
+    def create_new_patient(self, user):
+        first_name = user['first_name']
+        last_name = user['last_name']
+        gender = user['gender']
+        birthdate = user['birthdate']
+
         print "Creating a new patient"
         payload = {
             "resourceType": "Patient",
@@ -70,8 +73,8 @@ class FHIR:
                     ]
                 }
             ],
-            "gender": "male",
-            "birthDate": "1960-05-20",
+            "gender": gender,
+            "birthDate": birthdate,
             "address": [
                 {
                     "use": "home",
@@ -88,7 +91,7 @@ class FHIR:
 
         headers = {'content-type': 'application/json+fhir'}
         print json.dumps(payload)
-        # patient_url = self.base_url + "/Patient/?_format=json"
+        raw_input("Press Enter to continue...")
         patient_url = self.base_url + "/Patient?_format=json"
         r = requests.post(patient_url, data=json.dumps(payload), headers=headers)
         if r.status_code == 201:

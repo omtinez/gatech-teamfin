@@ -7,5 +7,8 @@ CREATE TABLE user(
          server TEXT,
          accept_terms BOOLEAN,
          first_name TEXT,
-         last_name TEXT
+         last_name TEXT,
+         birthdate DATETIME,
+         gender TEXT,
+         fhir_id INTEGER
 );
