@@ -8,6 +8,6 @@ def about():
     """Renders the about page."""
     return dict(
         title='About',
-        message='Your application description page.',
+        message='JogRx is a student product at the Georgia Institute of Technology',
         year=datetime.now().year
     )

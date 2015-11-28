@@ -2,7 +2,7 @@ import requests
 import json
 from time import gmtime, strftime
 
-# base_url = "http://polaris.i3l.gatech.edu:8080/gt-fhir-webapp/base/Observation"
+# base_url = "http://polaris.i3l.gatech.edu:8080/gt-fhir-webapp/base/Observation?_format=json"
 
 
 # Expects the minutes the user exercised and a user object with attribute id
@@ -39,7 +39,8 @@ class FHIR:
 
         headers = {'content-type': 'application/json+fhir'}
         print json.dumps(payload)
-        r = requests.post(self.base_url, data=json.dumps(payload), headers=headers)
+        obs_url = self.base_url + "/Observation/?_format=json"
+        r = requests.post(obs_url, data=json.dumps(payload), headers=headers)
         if r.status_code == 201:
             print "Success"
             print r.headers
@@ -50,3 +51,51 @@ class FHIR:
             print r.headers
             print r.text
             return
+
+    # creates a new FHIR patient and returns a patient id
+    def create_new_patient(self, user, userid):
+        print "Creating a new patient"
+        payload = {
+            "resourceType": "Patient",
+            "name": [
+                {
+                    "family": [
+                        "Donkey"
+                    ],
+                    "given":[
+                        "Solomon",
+                        "C"
+                    ]
+                }
+            ],
+            "gender": "male",
+            "birthDate": "1960-05-20",
+            "address": [
+                {
+                    "use": "home",
+                    "line": [
+                        "370 Zermatt Avenue"
+                    ],
+                    "city":"Atlanta",
+                    "state":"GA",
+                    "postalCode":"30308"
+                    }
+                ],
+            "active": 'true'
+            }
+
+        headers = {'content-type': 'application/json+fhir'}
+        print json.dumps(payload)
+        # patient_url = self.base_url + "/Patient/?_format=json"
+        patient_url = "http://polaris.i3l.gatech.edu:8080/gt-fhir-webapp/base/Patient?_format=json"
+        r = requests.post(patient_url, data=json.dumps(payload), headers=headers)
+        if r.status_code == 201:
+            print "Success"
+            print r.headers
+            print r.json
+            # return r.json
+        else:
+            print "Error"
+            print r.headers
+            print r.json
+            # return r.json
