@@ -13,7 +13,7 @@ class FHIR:
     def __init__(self, url):
         self.base_url = url
 
-    def send_exercise_obs(self, steps, userid):
+    def send_exercise_obs(self, steps, fhir_id):
         payload = {
             'resourceType': 'Observation',
             'code': {
@@ -27,15 +27,15 @@ class FHIR:
             },
             'valueQuantity': {
                 'value': steps,
-                'units': 'steps',
+                'units': 'cm',
                 'system': 'http://unitsofmeasure.org',
-                'code': 'steps'
+                'code': 'cm'
             },
             'appliesDateTime':  strftime("%Y-%m-%dT%H:%M:%S-04:00", gmtime()),
             'status': 'final',
             'reliability': 'ok',
             'subject': {
-                'reference': 'Patient/%s' % userid
+                'reference': 'Patient/%s' % fhir_id
             }
         }
 
