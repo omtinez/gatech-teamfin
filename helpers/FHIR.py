@@ -54,6 +54,18 @@ class FHIR:
             print r.text
             return
 
+    def get_observations(self, fhir_id):
+        headers = {'content-type': 'application/json+fhir'}
+        obs_url = self.base_url + "/Observation?patient._id=811&_format=json"
+        print obs_url
+        r = requests.get(obs_url, headers=headers)
+        if r.status_code == 200:
+            print "Success"
+            return r.text
+        else:
+            print "Error"
+            return r.text
+
     # creates a new FHIR patient and returns a patient id
     def create_new_patient(self, user):
         first_name = user['first_name']
