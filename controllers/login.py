@@ -4,7 +4,7 @@ import sqlite3
 import bcrypt
 from loginFailed import login_failed
 from success import success
-from showProgress import showProgress
+from showProgress import displayData
 
 @route('/login')
 @view('login')
@@ -13,8 +13,7 @@ def login():
         message='Enter your email to get started',
         year=datetime.now().year
     )
-usernames = ["TeamFin@gtech.edu"]
-passwords = ["TeamFin007"]
+
 
 def check_login(username, password):
     db = sqlite3.connect('database/jogrx.db')
@@ -38,7 +37,7 @@ def do_login():
     user_id = check_login(username, password)
     if user_id:
         response.set_cookie('userid', user_id, "teamfin")
-        return showProgress(getFitbitUsername(username))
+        return displayData(getFitbitUsername(username))
     else:
         return login_failed()
 		

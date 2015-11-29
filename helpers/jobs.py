@@ -1,7 +1,7 @@
 import schedule
 import time
-from FHIR import FHIR
-from FitbitAPI import FitbitAPI
+from FHIR import *
+from FitbitAPI import *
 import sqlite3
 
 

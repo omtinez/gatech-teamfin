@@ -1,4 +1,5 @@
 % rebase('layout.tpl', title='Fitbit Connect', year=year)
+
 <div class="jumbotron">
     <h1>JogRX</h1>
     <h3>Enter your fitbit sharing id.</h3>
@@ -11,7 +12,7 @@
     </div>
     <div class="form-group">
       <div class="col-sm-offset-2 col-sm-10">
-        <input value="Connect" type="submit" class="btn btn-default active" style = #ff0080/>
+        <input value="Connect" type="submit" class="btn btn-primary active" style = #ff0080/>
       </div>
     </div>
   </form>
