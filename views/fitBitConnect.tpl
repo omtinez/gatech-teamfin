@@ -11,7 +11,7 @@
     </div>
     <div class="form-group">
       <div class="col-sm-offset-2 col-sm-10">
-        <input value="Connect" type="submit" class="btn btn-default active" style = #ff0080/>
+        <input value="Connect" type="submit" class="btn btn-primary active" style = #ff0080/>
       </div>
     </div>
   </form>

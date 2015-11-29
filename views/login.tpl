@@ -10,16 +10,15 @@
       </div>
     </div>
     <div class="form-group">
-      <div class="col-sm-10">          
+      <div class="col-sm-10">
         <input name="password" type="password" class="form-control" id="pwd" placeholder="Enter password">
       </div>
     </div>
 
-    <div class="form-group">        
+    <div class="form-group">
       <div class="col-sm-offset-2 col-sm-10">
-        <input value="Login" type="submit" class="btn btn-default active"/>
+        <input value="Login" type="submit" class="btn btn-primary active"/>
       </div>
     </div>
   </form>
 </div>
-

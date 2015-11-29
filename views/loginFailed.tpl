@@ -4,4 +4,3 @@
     <h1>JogRX</h1>
 <h2>Login failed.</h2>
 </div>
-
