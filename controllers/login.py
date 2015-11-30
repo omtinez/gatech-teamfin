@@ -26,7 +26,7 @@ def check_login(username, password):
             return row[0]
 
     return None
-        
+
 
 
 @route('/login', method='POST')
@@ -37,10 +37,11 @@ def do_login():
     user_id = check_login(username, password)
     if user_id:
         response.set_cookie('userid', user_id, "teamfin")
+        print "I am here"
         return displayData(getFitbitUsername(username))
     else:
         return login_failed()
-		
+
 def getFitbitUsername(username):
     db = sqlite3.connect('database/jogrx.db')
     c = db.cursor()

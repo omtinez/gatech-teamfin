@@ -15,7 +15,7 @@ def showProgress(fitbitUsername):
     c.close()
     #output = template('displayData',rows=result)
     return result[3]
-	
+
 def getFhirID(fitbitID):
     db = sqlite3.connect('database/jogrx.db')
     c = db.cursor()
@@ -23,7 +23,7 @@ def getFhirID(fitbitID):
     result = c.fetchone()
     c.close()
     return result[11]
-	
+
 @route('/displayData')
 @view('displayData')
 def displayData(fitbitID):
@@ -31,11 +31,11 @@ def displayData(fitbitID):
     fhir.send_exercise_obs(showProgress(fitbitID), getFhirID(fitbitID))
     observations = fhir.get_observations(getFhirID(fitbitID))
     observationList = observations.split('\n')
-    
-    return dict(observations_raw=observations, year=datetime.datetime.now().year)   
-   
 
-	
+    return dict(observations_raw=observations, year=datetime.datetime.now().year)
+
+
+
 def progress(currentSteps):
     if (currentSteps<40): return "danger"
     elif(currentSteps<80): return  "warning"
@@ -56,5 +56,5 @@ def displayCurrentPogress():
         c.close()
         currentSteps =showProgress(tempReslut[0])
         precipitation = 10000
-        percentage = currentSteps/precipitation * 100	
+        percentage = currentSteps/precipitation * 100
         return dict(stepsTaken=currentSteps,percentage= percentage, progress = progress(percentage), year=datetime.datetime.now().year)

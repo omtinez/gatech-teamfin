@@ -39,7 +39,7 @@ $RECYCLE.BIN/
 *.swo
 
 #ignore the database
-/database/jogrx.db
-
+database/jogrx.db
+database/jogrx.db-journal
 .DS_Store
 
