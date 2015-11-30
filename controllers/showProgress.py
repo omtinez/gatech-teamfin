@@ -28,7 +28,7 @@ def getFhirID(fitbitID):
 @view('displayData')
 def displayData(fitbitID):
     fhir = FHIR('http://polaris.i3l.gatech.edu:8080/gt-fhir-webapp/base')
-    fhir.send_exercise_obs(showProgress(fitbitID), getFhirID(fitbitID))
+    # fhir.send_exercise_obs(showProgress(fitbitID), getFhirID(fitbitID))
     observations = fhir.get_observations(getFhirID(fitbitID))
     observationList = observations.split('\n')
 
