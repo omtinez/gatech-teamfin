@@ -16,8 +16,6 @@
 				</tr>
 			</thead>
 
-
-			<p>{{observations_pretty}}</p>
 			<tbody>
 				% for observation in observations_pretty:
 				<tr>
