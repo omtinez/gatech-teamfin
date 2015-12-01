@@ -3,20 +3,20 @@ from datetime import datetime
 import sqlite3
 from helpers import FHIR
 
-@route('/about')
-@view('about')
-def about():
+@route('/sync')
+@view('sync')
+def sync():
     """Renders the about page."""
     return dict(
-        title='About',
+        title='Sync',
         message='JogRx is a student product at the Georgia Institute of Technology',
         year=datetime.now().year
     )
 
 
-@route('/about', method='POST')
-@view('about')
-def do_about():
+@route('/sync', method='POST')
+@view('sync')
+def do_sync():
     fhir = FHIR('http://polaris.i3l.gatech.edu:8080/gt-fhir-webapp/base')
     fhir.sync_with_fhir()
     return dict(
