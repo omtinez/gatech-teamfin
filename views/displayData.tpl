@@ -7,8 +7,32 @@
       </div>
     </div>
 	</form>
-    <h3>FHIR User Observation</h3>
+  <h2>FHIR User Observation</h2>
+	<table class="table">
+			<thead>
+				<tr>
+						<th data-field="date">Date</th>
+						<th data-field="steps">Steps</th>
+				</tr>
+			</thead>
 
-    <pre style="border-left: medium solid; padding-left: 1em; display:table">{{observations_raw}}</pre>
+
+			<p>{{observations_pretty}}</p>
+			<tbody>
+				% for observation in observations_pretty:
+				<tr>
+					<td>{{observation['date']}}</td>
+					<td>{{observation['value']}}</td>
+				</tr>
+				% end
+			</tbody>
+		</table>
+
+
+		<hr>
+    <pre style="border-left: medium solid; padding-left: 1em; display:table">
+			<h3>Raw data for grading purposes</h3>
+			{{observations_raw}}
+		</pre>
 
 </div>

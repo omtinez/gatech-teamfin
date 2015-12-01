@@ -3,6 +3,7 @@ from datetime import datetime
 import sqlite3
 from DBAPI import *
 from helpers import FHIR
+import json
 
 
 @route('/showProgress')
@@ -24,17 +25,30 @@ def getFhirID(fitbitID):
     c.close()
     return result[11]
 
+
 @route('/displayData')
 @view('displayData')
 def displayData(fitbitID):
     fhir = FHIR('http://polaris.i3l.gatech.edu:8080/gt-fhir-webapp/base')
     # fhir.send_exercise_obs(showProgress(fitbitID), getFhirID(fitbitID))
     observations = fhir.get_observations(getFhirID(fitbitID))
-    observationList = observations.split('\n')
+    data = json.loads(observations)
+    observations_formatted = []
+    for observation in data['entry']:
+        obs_dict = {}
+        obs_dict['value'] = observation['resource']['valueQuantity']['value']
+        obs_dict['date'] = observation['resource']['appliesDateTime']
+        observations_formatted.append(obs_dict)
+    return dict(observations_pretty=observations_formatted, observations_raw=observations, year=datetime.datetime.now().year)
 
-    return dict(observations_raw=observations, year=datetime.datetime.now().year)
 
-
+def pretty(d, indent=0):
+    for key, value in d.iteritems():
+        print '\t' * indent + str(key)
+        if isinstance(value, dict):
+            pretty(value, indent+1)
+        else:
+            print '\t' * (indent+1) + str(value)
 
 def progress(currentSteps):
     if (currentSteps<40): return "danger"

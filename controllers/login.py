@@ -37,7 +37,6 @@ def do_login():
     user_id = check_login(username, password)
     if user_id:
         response.set_cookie('userid', user_id, "teamfin")
-        print "I am here"
         return displayData(getFitbitUsername(username))
     else:
         return login_failed()
