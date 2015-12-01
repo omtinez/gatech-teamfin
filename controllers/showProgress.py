@@ -40,7 +40,6 @@ def displayData(fitbitID):
         obs_dict['date'] = observation['resource']['appliesDateTime']
         observations_formatted.append(obs_dict)
     observations_formatted.sort()
-    raw_input("Press...")
     return dict(observations_pretty=observations_formatted, observations_raw=observations, year=datetime.datetime.now().year)
 
 
